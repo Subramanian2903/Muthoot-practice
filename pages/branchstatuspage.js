@@ -3,10 +3,10 @@ export class BranchStatusPage {
         this.page = page;
         this.branchStatusTitle = page.getByRole('heading', { name: /branch status/i }).or(page.getByText(/branch status/i));
         this.normalBranches = page.getByRole('button', { name: /normal branches/i });
-        this.alertBranches = page.getByRole('button', { name: 'Alert Branches (135)' });
+        this.alertBranches = page.getByRole('button', { name: /alert branches/i });
         this.listViewButton = page.getByRole('button', { name: 'List View' });
         this.mapViewButton = page.getByRole('button', { name: 'Map View' });
-        this.branchstatusselect = page.getByRole('button', { name: 'View Ahmedabad Branch' });
+        this.branchstatusselect = page.getByRole('button', { name: 'Marine Drive Branch EKM' });
     }
 
     async clickbranchStatusTitle() {
