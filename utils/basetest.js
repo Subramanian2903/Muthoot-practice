@@ -16,7 +16,6 @@ export const test = base.extend({
 
     branchDetails: async ({}, use) => {
         await use({
-            branchId: 'BR005',
             branchValue: 'BR005',
             branchName: 'Marine Drive Branch EKM'
         });

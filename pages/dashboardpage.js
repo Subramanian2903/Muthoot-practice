@@ -48,7 +48,7 @@ export class DashboardPage {
 
     async searchBranch(branchValue) {
         const resolvedBranchValue = typeof branchValue === 'object' && branchValue !== null
-            ? (branchValue.branchId || branchValue.branchValue || branchValue.branchName || '')
+            ? (branchValue.branchValue || branchValue.branchName || '')
             : branchValue;
 
         if (!resolvedBranchValue || !String(resolvedBranchValue).trim()) {
@@ -61,13 +61,15 @@ export class DashboardPage {
         await this.searchbox.fill(searchTerm);
 
         const matchingRow = this.page.getByRole('row').filter({ hasText: searchTerm }).first();
-        await matchingRow.waitFor({ state: 'visible', timeout: 30000 });
+        const rowCount = await matchingRow.count();
+
+        if (rowCount === 0) {
+            throw new Error(`No branch row found for search term: ${searchTerm}`);
+        }
+
+        await matchingRow.waitFor({ state: 'visible', timeout: 5000 });
         await matchingRow.getByRole('button').click();
         await this.page.getByText('Dashboard').nth(1).click();
     }
-
-    // async searchbranch(branchValue) {
-    //     await this.searchBranch(branchValue);
-    // }
 
 }
