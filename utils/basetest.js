@@ -12,6 +12,14 @@ export const test = base.extend({
 
     invalidCredentials: async ({}, use) => {
         await use({ username: 'admin@mht.com', password: 'Pass@13' });
+    },
+
+    branchDetails: async ({}, use) => {
+        await use({
+            branchId: 'BR005',
+            branchValue: 'BR005',
+            branchName: 'Marine Drive Branch EKM'
+        });
     }
 
 });

@@ -7,6 +7,7 @@ export class DashboardPage {
         this.verifiedBranches = page.getByText('View Details').nth(1);
         this.mismatchBranches = page.getByText('View Details').nth(2);
         this.sortDropdown = page.locator('select, [role="combobox"]');
+        this.searchbox = page.getByRole('textbox', { name: 'Search by Branch Code or Name' });
     }
 
     async waitForDashboardLoaded() {
@@ -44,4 +45,29 @@ export class DashboardPage {
         await this.sortDescending();
         await this.sortAscending();
     }
+
+    async searchBranch(branchValue) {
+        const resolvedBranchValue = typeof branchValue === 'object' && branchValue !== null
+            ? (branchValue.branchId || branchValue.branchValue || branchValue.branchName || '')
+            : branchValue;
+
+        if (!resolvedBranchValue || !String(resolvedBranchValue).trim()) {
+            throw new Error('Branch name or ID is required');
+        }
+
+        const searchTerm = String(resolvedBranchValue).trim();
+        await this.searchbox.waitFor({ state: 'visible', timeout: 30000 });
+        await this.searchbox.click();
+        await this.searchbox.fill(searchTerm);
+
+        const matchingRow = this.page.getByRole('row').filter({ hasText: searchTerm }).first();
+        await matchingRow.waitFor({ state: 'visible', timeout: 30000 });
+        await matchingRow.getByRole('button').click();
+        await this.page.getByText('Dashboard').nth(1).click();
+    }
+
+    // async searchbranch(branchValue) {
+    //     await this.searchBranch(branchValue);
+    // }
+
 }
