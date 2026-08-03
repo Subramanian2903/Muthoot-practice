@@ -1,7 +1,7 @@
 import { test, expect } from '../utils/basetest.js';
 import { BranchStatusPage } from '../pages/branchstatuspage.js';
 
-test('Verify Branch Status', async ({ loginPage, credentials}) => {
+test('Verify Branch Page', async ({ loginPage, credentials}) => {
     const loginSuccess = await loginPage.login(credentials.username, credentials.password);
     expect(loginSuccess).toBe(true);
 
