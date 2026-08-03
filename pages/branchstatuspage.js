@@ -56,6 +56,7 @@ export class BranchStatusPage {
         await this.clickNormalBranches();
         await this.clickListView();
         await this.selectBranchStatus();
+        await this.page.waitForTimeout(2000);
         await this.page.getByText('Branch Status').nth(1).click();
     }
 

@@ -69,6 +69,7 @@ export class DashboardPage {
 
         await matchingRow.waitFor({ state: 'visible', timeout: 5000 });
         await matchingRow.getByRole('button').click();
+        await this.page.waitForTimeout(2000);
         await this.page.getByText('Dashboard').nth(1).click();
     }
 
