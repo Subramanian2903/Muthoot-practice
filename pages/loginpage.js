@@ -20,7 +20,6 @@ export class LoginPage {
         await this.passwordInput.waitFor({ state: 'visible', timeout: 30000 });
     }
 
-    // Reuseable screenshot handling is provided by `utils/screenshotHelper.js`
 
     async login(username, password) {
         await this.open();
