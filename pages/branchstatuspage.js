@@ -6,6 +6,7 @@ export class BranchStatusPage {
         this.alertBranches = page.getByRole('button', { name: /alert branches/i });
         this.listViewButton = page.getByRole('button', { name: 'List View' });
         this.mapViewButton = page.getByRole('button', { name: 'Map View' });
+        this.filterBy = page.getByLabel('Filter by');
         this.branchstatusselect = page.getByRole('button', { name: 'Technopark Trivandrum' });
     }
 
@@ -44,16 +45,37 @@ export class BranchStatusPage {
         await this.branchstatusselect.click();
     }
 
+    async Open() {
+        await this.filterBy.selectOption('open');
+    }
+
+    async Close() {
+        await this.filterBy.selectOption('close');
+    }
+
+    async Out_of_Schedule_Open() {
+        await this.filterBy.selectOption('abnormal-open');
+    }
+
+    async Out_of_Schedule_Close() {
+        await this.filterBy.selectOption('abnormal-close');
+    }
+
     async branchStatusFilter() {
         await this.clickbranchStatusTitle();
         await this.waitForBranchStatusLoaded();
+        await this.clickListView();
+        await this.Open();
+        await this.Close();
+        await this.Out_of_Schedule_Open();
+        await this.Out_of_Schedule_Close();
         await this.clickNormalBranches();
         await this.clickListView();
         await this.clickMapView();
         await this.clickAlertBranches();
         await this.clickListView();
         await this.clickMapView();
-        await this.clickNormalBranches();
+        await this.page.getByText('Branch Status').nth(1).click();
         await this.clickListView();
         await this.selectBranchStatus();
         await this.page.waitForTimeout(2000);
