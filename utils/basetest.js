@@ -16,8 +16,8 @@ export const test = base.extend({
 
     branchDetails: async ({}, use) => {
         await use({
-            branchValue: 'BR005',
-            branchName: 'Marine Drive Branch EKM'
+            branchValue: 'BR001',
+            branchName: 'Technopark Trivandrum'
         });
     }
 

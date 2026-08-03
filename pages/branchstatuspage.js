@@ -6,7 +6,7 @@ export class BranchStatusPage {
         this.alertBranches = page.getByRole('button', { name: /alert branches/i });
         this.listViewButton = page.getByRole('button', { name: 'List View' });
         this.mapViewButton = page.getByRole('button', { name: 'Map View' });
-        this.branchstatusselect = page.getByRole('button', { name: 'Marine Drive Branch EKM' });
+        this.branchstatusselect = page.getByRole('button', { name: 'Technopark Trivandrum' });
     }
 
     async clickbranchStatusTitle() {
@@ -53,6 +53,7 @@ export class BranchStatusPage {
         await this.clickAlertBranches();
         await this.clickListView();
         await this.clickMapView();
+        await this.clickNormalBranches();
         await this.clickListView();
         await this.selectBranchStatus();
         await this.page.getByText('Branch Status').nth(1).click();
