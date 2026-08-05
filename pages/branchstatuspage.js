@@ -7,7 +7,7 @@ export class BranchStatusPage {
         this.listViewButton = page.getByRole('button', { name: 'List View' });
         this.mapViewButton = page.getByRole('button', { name: 'Map View' });
         this.filterBy = page.getByLabel('Filter by');
-        this.branchstatusselect = page.getByRole('button', { name: 'Technopark Trivandrum' });
+        this.dashboardMenuButton = page.getByText('Dashboard');
     }
 
     async clickbranchStatusTitle() {
@@ -41,24 +41,24 @@ export class BranchStatusPage {
         await this.mapViewButton.click();
     }
 
-    async selectBranchStatus () {
-        await this.branchstatusselect.click();
+    async dashboardMenu() {
+        await this.dashboardMenuButton.click();
     }
 
     async Open() {
-        await this.filterBy.selectOption('open');
+        await this.filterBy.selectOption({ label: 'All' });
     }
 
     async Close() {
-        await this.filterBy.selectOption('close');
+        await this.filterBy.selectOption({ label: 'Out of Schedule Open' });
     }
 
     async Out_of_Schedule_Open() {
-        await this.filterBy.selectOption('abnormal-open');
+        await this.filterBy.selectOption({ label: 'Out of Schedule Close' });
     }
 
     async Out_of_Schedule_Close() {
-        await this.filterBy.selectOption('abnormal-close');
+        await this.filterBy.selectOption({ label: 'All' });
     }
 
     async branchStatusFilter() {
@@ -75,11 +75,14 @@ export class BranchStatusPage {
         await this.clickAlertBranches();
         await this.clickListView();
         await this.clickMapView();
-        await this.page.getByText('Branch Status').nth(1).click();
+        await this.dashboardMenu();
+        await this.clickbranchStatusTitle();
         await this.clickListView();
-        await this.selectBranchStatus();
-        await this.page.waitForTimeout(2000);
+        await this.page.getByRole('button', { name: 'View Technopark Trivandrum' }).click();
         await this.page.getByText('Branch Status').nth(1).click();
     }
 
 }
+
+
+
