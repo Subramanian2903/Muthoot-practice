@@ -1,7 +1,8 @@
 export class BranchStatusPage {
     constructor(page) {
         this.page = page;
-        this.branchStatusTitle = page.getByRole('heading', { name: /branch status/i }).or(page.getByText(/branch status/i));
+        this.branchStatusMenuItem = page.locator('span.menu-text', { hasText: /branch status/i });
+        this.branchStatusTitle = page.getByRole('heading', { name: /branch status/i });
         this.normalBranches = page.getByRole('button', { name: /normal branches/i });
         this.alertBranches = page.getByRole('button', { name: /alert branches/i });
         this.listViewButton = page.getByRole('button', { name: 'List View' });
@@ -12,6 +13,10 @@ export class BranchStatusPage {
 
     async clickbranchStatusTitle() {
         await this.branchStatusTitle.click();
+    }
+
+    async clickbranchStatusMenuItem() {
+        await this.branchStatusMenuItem.click();
     }
 
     async waitForBranchStatusLoaded() {
@@ -62,7 +67,7 @@ export class BranchStatusPage {
     }
 
     async branchStatusFilter() {
-        await this.clickbranchStatusTitle();
+        await this.clickbranchStatusMenuItem();
         await this.waitForBranchStatusLoaded();
         await this.clickListView();
         await this.Open();
@@ -76,7 +81,7 @@ export class BranchStatusPage {
         await this.clickListView();
         await this.clickMapView();
         await this.dashboardMenu();
-        await this.clickbranchStatusTitle();
+        await this.clickbranchStatusMenuItem();
         await this.clickListView();
         await this.page.getByRole('button', { name: 'View Technopark Trivandrum' }).click();
         await this.page.getByText('Branch Status').nth(1).click();
